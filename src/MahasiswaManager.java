@@ -2,13 +2,9 @@
 import java.io.*;
 import java.util.ArrayList;
 
-public class MahasiswaManager {
+public class MahasiswaManager extends Mahasiswa {
 
     private final ArrayList<Mahasiswa> daftarMahasiswa = new ArrayList<>();
-
-    public void tambahMahasiswa(Mahasiswa mhs) {
-        daftarMahasiswa.add(mhs);
-    }
 
     public Mahasiswa cariMahasiswa(String nim) {
         for (Mahasiswa mhs : daftarMahasiswa) {
@@ -17,6 +13,11 @@ public class MahasiswaManager {
             }
         }
         return null;
+    }
+
+    // CRUD Data Mahasiswa
+    public void tambahMahasiswa(Mahasiswa mhs) {
+        daftarMahasiswa.add(mhs);
     }
 
     public boolean ubahMahasiswa(String nama, String nim, String jurusan, double ipk) {
@@ -44,8 +45,8 @@ public class MahasiswaManager {
         if (daftarMahasiswa.isEmpty()) {
             System.out.println("Belum ada data mahasiswa.");
         } else {
+            System.out.println("================ Data Mahasiswa ================");
             for (Mahasiswa mhs : daftarMahasiswa) {
-                System.out.println("================ Data Mahasiswa ================");
                 System.out.println("Nama: " + mhs.getNama());
                 System.out.println("NIM: " + mhs.getNim());
                 System.out.println("Jurusan: " + mhs.getJurusan());
@@ -55,6 +56,7 @@ public class MahasiswaManager {
         }
     }
 
+    // Simpan dan Baca Data dari File
     public void simpanKeFile(String namaFile) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(namaFile, true))) {
             for (Mahasiswa mhs : daftarMahasiswa) {

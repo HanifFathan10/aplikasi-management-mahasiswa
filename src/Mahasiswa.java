@@ -1,8 +1,4 @@
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Mahasiswa {
 
     private String nama;
@@ -27,24 +23,6 @@ public class Mahasiswa {
         System.out.println("Jurusan: " + this.jurusan);
         System.out.println("IPK: " + this.IPK);
         System.out.println("-----------------------------");
-    }
-
-    public void updateDataMhs(String nama, String nim, String jurusan, double IPK) {
-        this.nama = nama;
-        this.nim = nim;
-        this.jurusan = jurusan;
-        this.IPK = IPK;
-    }
-
-    public void saveToFile(ArrayList<Mahasiswa> daftarMahasiswa) {
-        try (FileWriter fw = new FileWriter("DataMahasiswa.txt", true)) {
-            for (Mahasiswa mhsSave : daftarMahasiswa) {
-                fw.write("Nama: " + mhsSave.getNama() + "," + "NPM: " + mhsSave.getNim() + "," + "Jurusan: " + mhsSave.getJurusan() + "," + "IPK: " + mhsSave.getIPK() + "\n");
-            }
-            System.out.println("Data berhasil disimpan ke dataMahasiswa.txt.");
-        } catch (IOException e) {
-            System.out.println("Terjadi kesalahan saat menyimpan data: " + e.getMessage());
-        }
     }
 
     public String getNama() {
@@ -78,4 +56,34 @@ public class Mahasiswa {
     public void setIPK(double value) {
         this.IPK = value;
     }
+
+    @Override
+    public String toString() {
+        return "Nama: " + this.nama + ", NIM: " + this.nim + ", Jurusan: " + this.jurusan + ", IPK: " + this.IPK;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Mahasiswa mahasiswa = (Mahasiswa) obj;
+        return Double.compare(mahasiswa.IPK, IPK) == 0 && nama.equals(mahasiswa.nama) && nim.equals(mahasiswa.nim) && jurusan.equals(mahasiswa.jurusan);
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = nama != null ? nama.hashCode() : 0;
+        result = 31 * result + (nim != null ? nim.hashCode() : 0);
+        result = 31 * result + (jurusan != null ? jurusan.hashCode() : 0);
+        temp = Double.doubleToLongBits(IPK);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
 }

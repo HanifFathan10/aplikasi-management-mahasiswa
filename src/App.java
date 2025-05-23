@@ -76,7 +76,11 @@ public class App {
 
                 case 5 -> {
                     mahasiswaManager.simpanKeFile("DataMahasiswa.txt");
-                    System.out.println("Terima kasih!");
+
+                    System.out.println("Data berhasil disimpan ke file.");
+                    System.out.println();
+
+                    mahasiswaManager.bacaDariFile(fileName);
                 }
                 case 6 ->
                     System.out.println("Terima kasih telah menggunakan program.");
